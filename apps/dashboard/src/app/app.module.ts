@@ -10,7 +10,10 @@ import { appRoutes } from './app.routes';
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(
+      appRoutes,
+      { initialNavigation: 'enabledBlocking' }
+      ),
   ],
   providers: [],
   bootstrap: [AppComponent],
