@@ -1,7 +1,4 @@
 
 <mfe2-navbar *ngIf="isLoggedIn$ | async"></mfe2-navbar>
+<router-outlet *ngIf="(isLoggedIn$ | async) === false"></router-outlet>
 
-<div *ngIf="isLoggedIn$ | async; else signIn">
-
-</div>
-<ng-template #signIn><router-outlet></router-outlet></ng-template>
