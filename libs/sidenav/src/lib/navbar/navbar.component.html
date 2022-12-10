@@ -7,16 +7,17 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened>
         <mat-nav-list>
-            <div mat-list-item>
-              <button mat-button routerLink="/home">
-                <mat-icon mat-list-icon>home</mat-icon>
-              </button>
-            </div>
-            <div mat-list-item>
-              <button mat-button (click)="logOut()">
-                <mat-icon mat-list-icon>logout</mat-icon>
-              </button>
-            </div>
+          <mat-list-item>
+            <button mat-button routerLink="/home">
+              <mat-icon mat-list-icon>home</mat-icon>
+            </button>
+
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button (click)="logOut()">
+              <mat-icon mat-list-icon>logout</mat-icon>
+            </button>
+          </mat-list-item>
 
         </mat-nav-list>
     </mat-sidenav>
