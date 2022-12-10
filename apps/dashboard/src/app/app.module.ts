@@ -6,12 +6,14 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { SidenavModule } from '@mfe2/sidenav';
+import { SharedRecentActivityModule } from '@mfe2/shared/recent-activity';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
     SidenavModule,
+    SharedRecentActivityModule,
     RouterModule.forRoot(
       appRoutes,
       { initialNavigation: 'enabledBlocking' }

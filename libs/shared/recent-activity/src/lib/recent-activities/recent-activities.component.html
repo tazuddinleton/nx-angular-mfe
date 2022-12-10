@@ -1,0 +1,8 @@
+<h2>Recent Activity</h2>
+<mat-list>
+    <mat-list-item *ngFor="let act of recentActivities">
+      <span matListItemTitle>{{act.title}}</span>
+      <span matListItemLine>{{act?.detail}}</span>
+      <span >{{act.timeStamp | date}}</span>
+    </mat-list-item>
+</mat-list>
