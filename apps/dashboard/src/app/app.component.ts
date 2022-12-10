@@ -7,6 +7,9 @@ import { distinctUntilChanged } from 'rxjs';
   selector: 'mfe2-root',
   template: `
     <div class="dashboard-nav">Admin Dashboard</div>
+    <div *ngIf="isLoggedIn$ | async">
+      <button type="button" (click)="logOut()">Logout</button>
+    </div>
     <div *ngIf="isLoggedIn$ | async; else signIn">
       You are authenticated so you can see this content.
     </div>
@@ -31,6 +34,7 @@ export class AppComponent implements OnInit{
         });
       })
   }
-
-
+  logOut() {
+    this.userService.logout();
+  }
 }
