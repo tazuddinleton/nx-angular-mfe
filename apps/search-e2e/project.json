@@ -19,12 +19,18 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/search-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/search-e2e/**/*.{js,ts}"
+        ]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["search"]
+  "implicitDependencies": [
+    "search"
+  ]
 }

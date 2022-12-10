@@ -20,3 +20,12 @@ This [guide](https://nx.dev/recipes/module-federation/dynamic-module-federation-
 
 ### Generate a library
 `nx g @nrwl/angular:lib <name>`
+
+### Add angular material to app
+`nx g @angular/material:ng-add --project=<project name>`
+
+But before running above open the `project.json` file and make the following changes
+1. Under `targets > build > ` set the `executor` to `"executor": "@angular-devkit/build-angular:browser",`.
+2. Under `targets > build > options` replace the `main.ts` with `bootstrap.ts`.
+
+After adding angular material to the project revert the changes. For reference see [this](https://github.com/nrwl/nx/issues/7621)
