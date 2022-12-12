@@ -18,6 +18,7 @@
       "@mfe2/shared/data-access-user": [
         "libs/shared/data-access-user/src/index.ts"
       ],
+      "@mfe2/shared/endeca": ["libs/shared/endeca/src/index.ts"],
       "@mfe2/shared/recent-activity": [
         "libs/shared/recent-activity/src/index.ts"
       ],

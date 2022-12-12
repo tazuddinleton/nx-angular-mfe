@@ -5,11 +5,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchWizardComponent } from './search-wizard/search-wizard.component';
 import { SearchAdvancedComponent } from './search-advanced/search-advanced.component';
+import { SharedEndecaModule } from '@mfe2/shared/endeca';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, SearchWizardComponent, SearchAdvancedComponent],
   imports: [
     BrowserModule,
+    SharedEndecaModule,
+    HttpClientModule,
     RouterModule.forRoot(
       [
         {

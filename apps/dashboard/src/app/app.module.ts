@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { SidenavModule } from '@mfe2/sidenav';
 import { SharedRecentActivityModule } from '@mfe2/shared/recent-activity';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
@@ -14,6 +15,7 @@ import { SharedRecentActivityModule } from '@mfe2/shared/recent-activity';
     BrowserModule,
     SidenavModule,
     SharedRecentActivityModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       { initialNavigation: 'enabledBlocking' }
