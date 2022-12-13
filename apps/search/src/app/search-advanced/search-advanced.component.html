@@ -22,7 +22,7 @@
   <mat-label>Related Country/Jurisdiction</mat-label>
   <mat-select
     [formControl]="relatedCountryFormControl"
-    [(value)]="selectedCountries"
+    [(value)]="selectedRelatedCountries"
     multiple>
     <mat-select-trigger>
       {{relatedCountryFormControl.value?.[0] || ''}}
