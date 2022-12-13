@@ -16,3 +16,20 @@
     <mat-option *ngFor="let country of countries" [value]="country?.id">{{country?.name}}</mat-option>
   </mat-select>
 </mat-form-field>
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Related Country/Jurisdiction</mat-label>
+  <mat-select
+    [formControl]="relatedCountryFormControl"
+    [(value)]="selectedCountries"
+    multiple>
+    <mat-select-trigger>
+      {{relatedCountryFormControl.value?.[0] || ''}}
+      <span *ngIf="(relatedCountryFormControl.value?.length || 0) > 1" class="example-additional-selection">
+        (+{{(relatedCountryFormControl.value?.length || 0) - 1}} {{relatedCountryFormControl.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+    </mat-select-trigger>
+    <mat-option *ngFor="let country of relatedCountries" [value]="country?.id">{{country?.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
