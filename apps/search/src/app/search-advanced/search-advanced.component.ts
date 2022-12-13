@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 import { EndecapodService } from '@mfe2/shared/endeca';
 import { RecentActivityService } from '@mfe2/shared/recent-activity';
 
@@ -12,11 +13,14 @@ export class SearchAdvancedComponent implements OnInit {
   countries: Country[] = [];
   relatedCountries: Country[] = [];
 
-  selectedCountries: Country[] = [];
-  selectedRelatedCountries: Country[] = [];
+  selectedCountries: number[] = [];
+  selectedRelatedCountries: number[] = [];
 
   countryFormControl = new FormControl('');
   relatedCountryFormControl = new FormControl('');
+
+  chips : Country[] = [];
+  searchResults: any[] = [];
   constructor(
     private recentActService: RecentActivityService,
     private endecaService: EndecapodService
@@ -25,7 +29,7 @@ export class SearchAdvancedComponent implements OnInit {
   ngOnInit(): void {
     this.recentActService.add({title: 'Advance search', detail: 'Just visited advanced search', timeStamp: new Date()});
     this.loadCountries();
-    this.loadRelatedCountry();
+    this.loadMainResult();
   }
 
   loadCountries() {
@@ -37,15 +41,36 @@ export class SearchAdvancedComponent implements OnInit {
     });
   }
 
-  loadRelatedCountry() {
-    const url = 'N=0&Ne=603292&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|1';
-    this.endecaService.queryUrl(url)
-    .subscribe(res => {
-      this.relatedCountries = res.dimensions.find((x: Country) => x.id === 603292).values;
-      console.log('DEBUG: related countries', res);
+  onCountryChange(c: MatSelectChange) {
+    console.log('DEBUG: selected countries', c, this.selectedCountries);
+    this.chips = [...this.countries.filter(c => this.selectedCountries.includes(c.id))];
+    // this.loadMainResult();
+  }
+
+  loadMainResult() {
+    const url = 'N=0&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1';
+    this.endecaService.queryUrl(url).subscribe(res => {
+      this.searchResults = res.records.map(
+        (r: Result) => r.records?.map((rr: Result) => {
+            return {
+              title: rr?.properties?.global_title[0]
+            }
+          })
+        ).flat();
+
+        console.log('DEBUG: result', this.searchResults);
     });
   }
 }
+
+
+interface Result {
+  records?: Result[];
+  properties?: {
+    global_title: string[]
+  }
+}
+
 
 
 interface Country {
