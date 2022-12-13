@@ -44,19 +44,25 @@ export class SearchAdvancedComponent implements OnInit {
   onCountryChange(c: MatSelectChange) {
     console.log('DEBUG: selected countries', c, this.selectedCountries);
     this.chips = [...this.countries.filter(c => this.selectedCountries.includes(c.id))];
-    // this.loadMainResult();
+    this.loadMainResult(this.selectedCountries);
   }
 
-  loadMainResult() {
-    const url = 'N=0&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1';
+  loadMainResult(dims: number[] = []) {
+    const d = dims.join("+");
+    const optional = (d: string) => d ? `N=0+${d}` : `N=0`;
+    const url = `${optional(d)}&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1`;
     this.endecaService.queryUrl(url).subscribe(res => {
-      this.searchResults = res.records.map(
+      const r = res.records.map(
         (r: Result) => r.records?.map((rr: Result) => {
             return {
               title: rr?.properties?.global_title[0]
             }
           })
         ).flat();
+
+        const s = new Set(r);
+        this.searchResults = Array.from(s);
+
 
         console.log('DEBUG: result', this.searchResults);
     });
