@@ -8,30 +8,22 @@ import { RecentActivityService } from '@mfe2/shared/recent-activity';
   templateUrl: './search-advanced.component.html',
   styleUrls: ['./search-advanced.component.scss'],
 })
-export class SearchAdvancedComponent {
+export class SearchAdvancedComponent implements OnInit{
   countries: Country[] = [];
   selectedCountries: Country[] = [];
   countryFormControl = new FormControl('');
-
-  toppings = new FormControl('');
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     private recentActService: RecentActivityService,
     private endecaService: EndecapodService
     ) {}
 
-  // ngOnInit(): void {
-  //   this.recentActService.add({title: 'Advance search', detail: 'Just visited advanced search', timeStamp: new Date()});
-  //   const url = "N=0&Ne=603291&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|2";
-  //   this.endecaService.queryUrl(url).subscribe(res => {
-  //     this.countries = res.dimensions.find((x: Country) => x.id === 603291).values;
-  //     console.log('DEBUG: countries', this.countries);
-  //   });
-  // }
-
-  onValueChange() {
-    console.log('DEBUG: selected countries: ', this.selectedCountries);
+  ngOnInit(): void {
+    this.recentActService.add({title: 'Advance search', detail: 'Just visited advanced search', timeStamp: new Date()});
+    const url = "N=0&Ne=603291&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|2";
+    this.endecaService.queryUrl(url).subscribe(res => {
+      this.countries = res.dimensions.find((x: Country) => x.id === 603291).values;
+      console.log('DEBUG: countries', this.countries);
+    });
   }
 }
 
