@@ -1,4 +1,44 @@
-<mat-toolbar>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+
+    <!-- <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button> -->
+    <mat-nav-list>
+          <mat-list-item>
+            <button mat-button routerLink="/">
+              <mat-icon mat-list-icon>home</mat-icon>
+            </button>
+          </mat-list-item>
+
+          <mat-list-item>
+            <button mat-button routerLink="/search">
+              <mat-icon mat-list-icon>search</mat-icon>
+            </button>
+          </mat-list-item>
+
+          <mat-list-item>
+            <button mat-button (click)="logOut()">
+              <mat-icon mat-list-icon>logout</mat-icon>
+            </button>
+          </mat-list-item>
+
+        </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      <mat-icon mat-list-icon>menu</mat-icon>
+      Tax Research Platform
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
+
+
+<!-- <mat-toolbar>
     <mat-toolbar-row>
         <h2>Tax Research Platform</h2>
     </mat-toolbar-row>
@@ -28,8 +68,6 @@
         </mat-nav-list>
     </mat-sidenav>
 <mat-sidenav-content>
-    <div style="height: 100vh;">
-      <router-outlet></router-outlet>
-    </div>
+  <router-outlet></router-outlet>
 </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
