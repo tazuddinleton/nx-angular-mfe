@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchWizardComponent } from './search-wizard/search-wizard.component';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list'
+import { ReuseStrategy } from '../../../dashboard/src/app/reuse-strategy';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MatListModule } from '@angular/material/list'
     ),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../dashboard/src/app/reuse-strategy.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
