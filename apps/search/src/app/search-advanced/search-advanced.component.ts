@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { EndecapodService } from '@mfe2/shared/endeca';
 import { RecentActivityService } from '@mfe2/shared/recent-activity';
 
@@ -23,13 +24,24 @@ export class SearchAdvancedComponent implements OnInit {
   searchResults: any[] = [];
   constructor(
     private recentActService: RecentActivityService,
-    private endecaService: EndecapodService
+    private endecaService: EndecapodService,
+    private route: ActivatedRoute,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
     this.recentActService.add({title: 'Advance search', detail: 'Just visited advanced search', timeStamp: new Date()});
-    this.loadCountries();
-    this.loadMainResult();
+    console.log('DEBUG: router snapshot url', this.route.queryParams);
+    this.route.queryParamMap.subscribe(p => {
+      if (p.keys.length > 0) {
+        this.loadCountries();
+        const url = localStorage.getItem('search_url');
+        this.loadMainResult(url || '');
+      } else {
+        localStorage.setItem('search_url', this.makeUrl());
+        this.router.navigateByUrl(`/search/advanced?${this.makeUrl()}`);
+      }
+    });
   }
 
   loadCountries() {
@@ -44,13 +56,19 @@ export class SearchAdvancedComponent implements OnInit {
   onCountryChange(c: MatSelectChange) {
     console.log('DEBUG: selected countries', c, this.selectedCountries);
     this.chips = [...this.countries.filter(c => this.selectedCountries.includes(c.id))];
-    this.loadMainResult(this.selectedCountries);
+    localStorage.setItem('search_url', this.makeUrl(this.selectedCountries));
+    this.router.navigateByUrl(`/search/advanced?${this.makeUrl(this.selectedCountries)}`);
   }
 
-  loadMainResult(dims: number[] = []) {
+  makeUrl(dims: number[] = []): string {
     const d = dims.join("+");
     const optional = (d: string) => d ? `N=0+${d}` : `N=0`;
-    const url = `${optional(d)}&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1`;
+    // 'N=0&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nao=10&Nty=0&Ns=sort_date_common|1'
+    const url = `${optional(d)}&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nao=10&Nty=0&Ns=sort_date_common|1`;
+    return url;
+  }
+
+  loadMainResult(url: string) {
     this.endecaService.queryUrl(url).subscribe(res => {
       const r = res.records.map(
         (r: Result) => r.records?.map((rr: Result) => {
@@ -62,8 +80,6 @@ export class SearchAdvancedComponent implements OnInit {
 
         const s = new Set(r);
         this.searchResults = Array.from(s);
-
-
         console.log('DEBUG: result', this.searchResults);
     });
   }

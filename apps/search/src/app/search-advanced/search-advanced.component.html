@@ -20,11 +20,11 @@
 
 
 <mat-chip-listbox aria-label="Fish selection">
-  <mat-chip-option *ngFor="let chip of chips" selected="selected" color="primary">{{chip.name}}</mat-chip-option>
+  <mat-chip-option *ngFor="let chip of chips" selected="selected" color="primary">{{chip?.name}}</mat-chip-option>
 </mat-chip-listbox>
 
 <h2>Results</h2>
 
 <mat-list role="list">
-  <mat-list-item *ngFor="let r of searchResults" role="listitem">{{r.title}}</mat-list-item>
+  <mat-list-item *ngFor="let r of searchResults" role="listitem">{{r?.title}}</mat-list-item>
 </mat-list>
